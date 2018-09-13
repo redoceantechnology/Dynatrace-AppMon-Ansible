@@ -25,6 +25,10 @@
     {
       "name": "IN_PROGRESS",
       "hidden": false
+    },
+    {
+      "name": "TESTING",
+      "hidden": false
     }
   ],
   "code": {
