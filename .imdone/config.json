@@ -29,6 +29,10 @@
     {
       "name": "DONE",
       "hidden": false
+    },
+    {
+      "name": "TESTING",
+      "hidden": false
     }
   ],
   "code": {
@@ -48,7 +52,8 @@
       "MARK",
       "HELP",
       "ANALYSIS",
-      "IN_PROGRESS"
+      "IN_PROGRESS",
+      "TESTING"
     ]
   },
   "keepEmptyPriority": true,
