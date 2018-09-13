@@ -23,11 +23,11 @@
       "hidden": false
     },
     {
-      "name": "DONE",
+      "name": "IN_PROGRESS",
       "hidden": false
     },
     {
-      "name": "IN_PROGRESS",
+      "name": "DONE",
       "hidden": false
     }
   ],
