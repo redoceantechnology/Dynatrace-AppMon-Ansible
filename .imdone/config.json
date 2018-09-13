@@ -23,15 +23,15 @@
       "hidden": false
     },
     {
+      "name": "TESTING",
+      "hidden": false
+    },
+    {
       "name": "IN_PROGRESS",
       "hidden": false
     },
     {
       "name": "DONE",
-      "hidden": false
-    },
-    {
-      "name": "TESTING",
       "hidden": false
     }
   ],
