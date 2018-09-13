@@ -29,6 +29,10 @@
     {
       "name": "TESTING",
       "hidden": false
+    },
+    {
+      "name": "DONE",
+      "hidden": false
     }
   ],
   "code": {
