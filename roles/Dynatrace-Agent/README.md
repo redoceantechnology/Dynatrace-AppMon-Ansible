@@ -42,6 +42,7 @@ As defined in ```defaults/main.yml```:
 We use [Test Kitchen](http://kitchen.ci) to automatically test our automated deployments with [Serverspec](http://serverspec.org) and [RSpec](http://rspec.info/):
 
 1) Install Test Kitchen and its dependencies from within the project's directory:
+NOTE* Solaris testing not yet supported
 
 ```
 gem install bundler
@@ -79,4 +80,5 @@ Licensed under the MIT License. See the LICENSE file for details.
 
 ## Testing
 ```vagrant up sol1```
+
 ```ansible-playbook -vvvvv appMon-server.yml --ask-become-pass```
