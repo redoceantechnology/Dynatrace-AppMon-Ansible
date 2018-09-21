@@ -1,6 +1,7 @@
 .vagrant/
 .kitchen/
 .imdone/
+.journal
 notes/
 .DS_Store
 journal/

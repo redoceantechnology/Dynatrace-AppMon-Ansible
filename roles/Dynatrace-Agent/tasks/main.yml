@@ -21,6 +21,7 @@
 
 # DONE:0 ensure full solaris support
 # TODO:10 TEST IDEMPOTENCE
-# TODO:20 ensure tests run on docker
+# TODO:20 TEST IDEMPOTENCE
+# TODO:30 ensure tests run on docker
 # TODO:0 convert to molecule
 # BACKLOG:40 windows support

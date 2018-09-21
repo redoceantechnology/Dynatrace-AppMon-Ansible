@@ -1,0 +1,26 @@
+---
+dependency:
+  name: galaxy
+driver:
+  name: docker
+lint:
+  name: yamllint
+platforms:
+  - name: instance
+    image: centos:7
+    # TODO: Create and add solaris docker platform
+provisioner:
+  name: ansible
+  lint:
+    name: ansible-lint
+scenario:
+  name: default
+  # TODO: create pre and post scenarios for dynatrace
+verifier:
+  name: testinfra
+  # TODO: wrtie better tests
+  lint:
+    name: flake8
+# TODO: customise linter
+# TODO: where is the fucking linter is ansible linter cant rememeber Check
+# TODO:
