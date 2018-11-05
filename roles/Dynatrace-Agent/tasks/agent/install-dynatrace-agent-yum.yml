@@ -34,12 +34,26 @@
     chdir: "{{ dynatrace_agent_linux_install_dir }}"
   become: yes
 
-- name: Gather the name of the installation directory
-  shell: find . -maxdepth 1 -name dynatrace-\* -type d -printf '%T@ %p\n' | sort -k 1nr | cut -d' ' -f2 | head -1
-  args:
-    chdir: "{{ dynatrace_agent_linux_install_dir }}"
-  register: dynatrace_agent_installed_version_dir
-  become: yes
+# - name: Gather the name of the installation directory
+#   shell: find . -maxdepth 1 -name dynatrace-\* -type d -printf '%T@ %p\n' | sort -k 1nr | cut -d' ' -f2 | head -1
+#   args:
+#     chdir: "{{ dynatrace_agent_linux_install_dir }}"
+#   register: dynatrace_agent_installed_version_dir
+#   become: yes
+
+- name: Get install dir
+  find:
+    paths: "{{ dynatrace_agent_linux_root_dir }}"
+    recurse: no
+    patterns: '(dynatrace)[\d-][7](.)[0]'
+    use_regex: yes
+    file_type: directory
+  register: dynatrace_agent_install_dir
+
+- name: "set install dir"
+  set_fact:
+    dynatrace_agent_installed_path: "{{ dynatrace_agent_install_dir.files[0].path }}"
+  when: dynatrace_agent_install_dir is defined
 
 - name: Change ownership of the installation directory
   file:

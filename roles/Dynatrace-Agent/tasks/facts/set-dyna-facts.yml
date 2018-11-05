@@ -1,6 +1,6 @@
 ---
 # BACKLOG:20 Consider using blocks
-- name: "Check if dynatrace is already installed"
+- name: "Check in {{ dynatrace_agent_linux_root_dir }} for isntalled version"
   find:
     paths: "{{ dynatrace_agent_linux_root_dir }}"
     recurse: no
@@ -9,15 +9,19 @@
     file_type: link
   register: dynatrace_agent_installed_version_dir
 
-- name: "set dynatrace is installed fact when installed"
+- name: "set {{ dynatrace_agent_installed_version_dir }} if installed"
   set_fact:
     dynatrace_agent_installed_version_path: "{{ dynatrace_agent_installed_version_dir.files[0].path }}"
   when: dynatrace_agent_installed_version_dir.matched == 1
 
-- name: "set dynatrace is not installed fact when not installed"
-  set_fact:
-    dynatrace_agent_not_installed: "True"
-  when: dynatrace_agent_installed_version_dir.matched == 0
+# check if it found an installed version dir otherwise dynatrace_agent_installed_version_path will be set
+- debug:
+    msg="{{ dynatrace_agent_installed_version_dir.matched }}"
+# TODO: ensure this is not needed and remove it
+# - name: "set dynatrace is not installed fact when not installed"
+#   set_fact:
+#     dynatrace_agent_not_installed: "True"
+#   when: dynatrace_agent_installed_version_dir.matched == 0
 
 - name: Check if jar extract-install dir exists
   find:
@@ -27,6 +31,9 @@
     use_regex: yes
     file_type: directory
   register: dynatrace_agent_extract_install_dir
+
+- debug:
+    msg="{{ dynatrace_agent_extract_install_dir.matched }}"
 
 - name: "found extract dir but no symlink dir, assuming install is incomplete"
   set_fact:
@@ -38,14 +45,23 @@
 - name: Check if the Dynatrace installer is provided locally if it is not already installed
   local_action:
     module: stat
-    path: "{{ playbook_dir }}/roles/{{ dynatrace_agent_role_name }}/files/linux/{{ dynatrace_agent_linux_installer_file_name }}"
+    path: "roles/{{ dynatrace_agent_role_name }}/files/linux/{{ dynatrace_agent_linux_installer_file_name }}"
   register: dynatrace_agent_installer_file_provided
   when: (dynatrace_agent_installed_version_dir.matched == 0 and dynatrace_agent_extract_install_dir.matched == 0)
 
-- name: "Check if we previously downladed {{ dynatrace_agent_linux_installer_file_name }} installer if not provided or already installed"
+- debug:
+    msg="{{ dynatrace_agent_installer_file_provided }}"
+
+- name: "Check if we previously downladed dynatrace_agent_linux_installer_file_name jar installer if not provided or already installed"
   stat:
     path: "{{ dynatrace_agent_linux_root_dir }}/{{ dynatrace_agent_linux_installer_file_name }}"
-  register: dynatrace_agent_installer_downloaded
+  register: pdynatrace_agent_installer_downloaded
+
+- name: "Set dynatrace_agent_installer_downloaded to false if not downloaded"
+  set_fact:
+    dynatrace_agent_installer_downloaded: False
   when:
-    - dynatrace_agent_installer_file_provided.stat.exists == false
-    - (dynatrace_agent_installed_version_dir.matched == 0 and dynatrace_agent_extract_install_dir.matched == 0)
+    - pdynatrace_agent_installer_downloaded.stat.exists == False
+# check if downloaded past installer
+- debug:
+    msg="{{ dynatrace_agent_installer_downloaded }}"

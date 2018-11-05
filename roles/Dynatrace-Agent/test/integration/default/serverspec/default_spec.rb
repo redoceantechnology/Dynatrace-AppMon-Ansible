@@ -18,3 +18,4 @@ describe file('/opt/dynatrace/agent') do
   it { should be_owned_by 'dynatrace' }
   it { should be_grouped_into 'dynatrace' }
 end
+# TODO: convert to python and infratest

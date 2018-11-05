@@ -15,8 +15,8 @@
     mode: u+rwx
     validate_certs: False
   when:
-    - dynatrace_agent_installer_file_provided.stat.exists == false
-    - dynatrace_agent_installer_downloaded.stat.exists == false 
+    - dynatrace_agent_installer_file_provided.stat.exists == False
+    - dynatrace_agent_installer_downloaded.stat.exists == False
   become: yes
 
 - name: Install the Dynatrace Agent
